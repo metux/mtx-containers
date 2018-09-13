@@ -1,0 +1,29 @@
+#!/bin/bash
+
+[ "$DOCKER" ] || DOCKER=docker
+
+DOCKER_IMAGE=metux/dng-debootstrap
+
+GID=`id -g`
+USER=`whoami`
+CWD=`pwd`
+
+if [ ! "$3" ]; then
+    echo "$0: <distro> <arch> <tarball-name>" >&2
+    exit 1
+fi
+
+$DOCKER run \
+    --rm \
+    -v "$HOME:$HOME" \
+    -v "/etc/passwd:/etc/passwd" \
+    -v "/etc/group:/etc/group" \
+    -e "CWD=$CWD" \
+    -e "USER=$USER" \
+    -e "LOGNAME=$USER" \
+    -e "HOME=$HOME" \
+    -e "LANG=$LANG" \
+    -e "LC_ALL=$LC_ALL" \
+    -e "LC_CTYPE=$LC_CTYPE" \
+    $DOCKER_IMAGE \
+    $*

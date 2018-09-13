@@ -1,0 +1,137 @@
+ac_add_options --enable-application=comm/mail
+ac_add_options --disable-alsa
+ac_add_options --disable-jack
+ac_add_options --disable-pulseaudio
+ac_add_options --disable-eme
+ac_add_options --disable-gpsd
+ac_add_options --disable-webrtc
+ac_add_options --disable-raw
+ac_add_options --disable-crashreporter
+ac_add_options --disable-dbus
+ac_add_options --disable-gconf
+#ac_add_options --disable-synth-speechd
+#ac_add_options --disable-webspeech
+#ac_add_options --disable-webspeechtestbackend
+ac_add_options --disable-mobile-optimize
+ac_add_options --disable-necko-wifi
+ac_add_options --disable-nfc
+ac_add_options --disable-parental-controls
+ac_add_options --disable-synth-pico
+
+#  --enable-small-chunk-size
+#                            Allocate memory for JS GC things in smaller chunks
+#  --with-system-ffi         Use system libffi (located with pkgconfig)
+#  --disable-nodejs          Require Node.js to build
+#  --with-l10n-base          Path to l10n repositories
+#  --enable-default-toolkit={cairo-gtk3,cairo-gtk3-wayland,cairo-uikit}
+#                            Select default toolkit
+#  --with-gl-provider        Set GL provider backend type
+#  --disable-wmf             Disable support for Windows Media Foundation
+#  --disable-ffmpeg          Disable FFmpeg for fragmented H264/AAC decoding
+#  --enable-av1              Enable libaom for av1 video support
+#  --disable-fmp4            Disable support for in built Fragmented MP4 parsing
+#  --enable-openmax          Enable OpenMAX IL for video/audio decoding
+#  --with-mozilla-api-keyfile
+#                            Use the secret key contained in the given keyfile for Mozilla API requests
+#  --with-google-api-keyfile
+#                            Use the secret key contained in the given keyfile for Google API requests
+#  --with-bing-api-keyfile   Use the client id and secret key contained in the given keyfile for Bing API requests
+#  --with-adjust-sdk-keyfile
+#                            Use the secret key contained in the given keyfile for Adjust SDK requests
+#  --with-leanplum-sdk-keyfile
+#                            Use the client id and secret key contained in the given keyfile for Leanplum SDK requests
+#  --with-pocket-api-keyfile
+#                            Use the secret key contained in the given keyfile for Pocket API requests
+#  --disable-printing        Disable printing support
+#                            Enable support for HTML Speech API Test Backend
+#  --disable-skia            Disable use of Skia
+#  --disable-skia-gpu        Disable use of Skia-GPU
+#  --enable-skia-pdf         Enable Skia PDF
+#  --enable-skia-pdf-sfntly  Enable SFNTLY font subsetting in Skia PDF
+#  --enable-mortar           Enable mortar extension
+#  --enable-marionette       Enable Marionette remote protocol
+#  --disable-geckodriver     Build geckodriver
+#  --enable-proxy-bypass-protection
+#                            Prevent suspected or confirmed proxy bypasses
+#  --disable-accessibility   Disable accessibility support
+#  --with-unsigned-addon-scopes={app,system}
+#                            Addon scopes where signature is not required
+#  --enable-launcher-process
+#                            Enable launcher process by default
+#  --enable-bundled-fonts    Enable support for bundled fonts on desktop platforms
+#  --enable-verify-mar       Enable verifying MAR signatures
+#  --enable-tasktracer       Enable TaskTracer
+#  --enable-ui-locale        Select the user interface locale (default: en-US) [en-US]
+#  --cache-file
+#  --datadir
+#  --enable-content-sandbox  Help missing for old configure options
+#  --enable-cookies          Help missing for old configure options
+#  --enable-cpp-rtti         Help missing for old configure options
+#  --enable-dump-painting    Help missing for old configure options
+#  --enable-extensions       Help missing for old configure options
+#  --enable-feeds            Help missing for old configure options
+#  --enable-icf              Help missing for old configure options
+#  --enable-install-strip    Help missing for old configure options
+#  --enable-libjpeg-turbo    Help missing for old configure options
+#  --enable-libproxy         Help missing for old configure options
+#  --enable-llvm-hacks       Help missing for old configure options
+#  --enable-logrefcnt        Help missing for old configure options
+#  --enable-memory-sanitizer
+#                            Help missing for old configure options
+#  --enable-negotiateauth    Help missing for old configure options
+#  --enable-nspr-build       Help missing for old configure options
+#  --enable-posix-nspr-emulation
+#                            Help missing for old configure options
+#  --enable-pref-extensions  Help missing for old configure options
+#  --enable-readline         Help missing for old configure options
+#  --enable-sandbox          Help missing for old configure options
+#  --enable-signmar          Help missing for old configure options
+#  --enable-startup-notification
+#                            Help missing for old configure options
+#  --enable-startupcache     Help missing for old configure options
+#  --enable-strip            Help missing for old configure options
+#  --enable-system-cairo     Help missing for old configure options
+#  --enable-system-extension-dirs
+#                            Help missing for old configure options
+#  --enable-system-pixman    Help missing for old configure options
+#  --enable-system-sqlite    Help missing for old configure options
+#  --enable-updater          Help missing for old configure options
+#  --enable-xul              Help missing for old configure options
+#  --enable-zipwriter        Help missing for old configure options
+#  --includedir              Help missing for old configure options
+#  --libdir                  Help missing for old configure options
+#  --no-create               Help missing for old configure options
+#  --prefix                  Help missing for old configure options
+#  --with-app-basename       Help missing for old configure options
+#  --with-app-name           Help missing for old configure options
+#  --with-branding           Help missing for old configure options
+#  --with-cross-lib          Help missing for old configure options
+#  --with-debug-label        Help missing for old configure options
+#  --with-distribution-id    Help missing for old configure options
+#  --with-doc-include-dirs   Help missing for old configure options
+#  --with-doc-input-dirs     Help missing for old configure options
+#  --with-doc-output-dir     Help missing for old configure options
+#  --with-qemu-exe           Help missing for old configure options
+#  --with-system-bz2
+#  --with-system-icu
+#  --with-system-jpeg
+#  --with-system-libevent
+#  --with-system-libvpx
+#  --with-system-nspr
+#  --with-system-nss
+#  --with-system-png
+#  --with-system-zlib
+
+#  --with-thumb              Help missing for old configure options
+#  --with-thumb-interwork    Help missing for old configure options
+#  --with-unify-dist         Help missing for old configure options
+#  --with-user-appdir        Help missing for old configure options
+
+#  LLVM_CONFIG               Path to llvm-config
+#  RUSTC                     Path to the rust compiler
+#  CARGO                     Path to the Cargo package manager
+#  CBINDGEN                  Path to the cbindgen program
+#  NODEJS                    Path to nodejs
+#  MOZ_INSTRUMENT_EVENT_LOOP
+#                            Force-enable event loop instrumentation
+#  USE_FC_FREETYPE           Force-enable the use of fontconfig freetype

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+TAG=metux/alpine-ghidra-build
+
+GID=`id -g`
+USER=`whoami`
+CWD=`pwd`
+
+docker run \
+    --privileged \
+    --rm \
+    -it \
+    -u "$UID:$GID" \
+    -v "$HOME:$HOME" \
+    -v "/tmp/.X11-unix:/tmp/.X11-unix" \
+    -v "/etc/passwd:/etc/passwd" \
+    -v "/etc/group:/etc/group" \
+    -v "/dev/dri:/dev/dri:rw" \
+    -e "CWD=$CWD" \
+    -e "DISPLAY=$DISPLAY" \
+    -e "USER=$USER" \
+    -e "LOGNAME=$USER" \
+    -e "HOME=$HOME" \
+    -e "LANG=$LANG" \
+    -e "LC_ALL=$LC_ALL" \
+    -e "LC_CTYPE=$LC_CTYPE" \
+    $TAG \
+    $*

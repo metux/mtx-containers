@@ -1,0 +1,2 @@
+Chrome 76 doens't work in containers, due to their broken sandbox implementation.
+

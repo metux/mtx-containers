@@ -1,0 +1,101 @@
+#!/bin/bash
+
+[ "$DOCKER" ] || DOCKER=docker
+
+CONTAINER_IMAGE="metux/vdesk-skype-alpha"
+
+args=($DOCKER run --rm)
+
+CWD=`pwd`
+GID=`id -g`
+
+die() {
+    echo "$0: $*" >&2
+    exit 1
+}
+
+map_pulseaudio() {
+    args+=(-v "/run/user/$UID/pulse:/run/user/$UID/pulse")
+}
+
+map_camera() {
+    args+=(--device /dev/video0)
+}
+
+map_x11() {
+    echo "using X11"
+    args+=(-v "/tmp/.X11-unix:/tmp/.X11-unix")
+    args+=(-e DISPLAY="$DISPLAY")
+}
+
+map_multimedia() {
+    map_x11
+    map_pulseaudio
+    map_camera
+}
+
+map_locales() {
+    ## locales
+    args+=(-e LANG="$LANG")
+    args+=(-e LC_ALL="$LC_ALL")
+    args+=(-e LC_CTYPE="$LC_CTYPE")
+}
+
+map_dri() {
+    ## DRI/GL
+    args+=(--privileged)
+}
+
+map_caller_uid() {
+    local username=`whoami`
+
+    ## fixme: should create our own fake passwd
+    args+=(-v "/etc/passwd:/etc/passwd" -v "/etc/group:/etc/group")
+
+    ## user id
+    args+=(-u "$UID:$GID")
+    args+=(-e LOGNAME="$username")
+    args+=(-e USER="$username")
+}
+
+enable_strace() {
+    args+=(--security-opt seccomp:unconfined)
+}
+
+## run a container in oneshot mode w/ x11
+run_oneshot() {
+    [ "$CONTAINER_IMAGE" ] || die "image name undefined"
+
+    local HDIR=$HOME/.skype-root
+    mkdir -p $HDIR
+
+    ## skype specific
+#    CWD="$HOME/.config/skypeforlinux"
+#    mkdir -p "$CWD"
+    CWD="$HOME"
+
+    enable_strace
+    map_caller_uid
+
+    ## current work dir (will be handled by entrypoint.sh)
+    args+=(-e CWD="$CWD")
+
+    ## home directory
+#    args+=(-v "$HOME:$HOME" -e HOME="$HOME")
+    args+=(-v "$HDIR:$HOME" -e HOME="$HOME")
+
+    map_locales
+    map_multimedia
+    map_dri
+
+    ## skype
+#    args+=(-v "$HOME/.config/skypeforlinux:$HOME/.config/skypeforlinux")
+
+    ## add container image name
+    args+=("$CONTAINER_IMAGE")
+
+    echo "${args[@]}"
+    ${args[@]} "$@"
+}
+
+run_oneshot "$@"

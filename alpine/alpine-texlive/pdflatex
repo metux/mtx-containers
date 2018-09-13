@@ -1,0 +1,29 @@
+#!/bin/bash
+
+[ "$DOCKER" ] || DOCKER=docker
+
+DOCKER_IMAGE=metux/vdesk-alpine-texlive
+
+GID=`id -g`
+USER=`whoami`
+CWD=`pwd`
+
+$DOCKER run \
+    --rm \
+    -u "$UID:$GID" \
+    -v "$HOME:$HOME" \
+    -v "/tmp/.X11-unix:/tmp/.X11-unix" \
+    -v "/etc/passwd:/etc/passwd" \
+    -v "/etc/group:/etc/group" \
+    -e "TEXINPUTS=$TEXINPUTS" \
+    -e "CWD=$CWD" \
+    -e "DISPLAY=$DISPLAY" \
+    -e "USER=$USER" \
+    -e "LOGNAME=$USER" \
+    -e "HOME=$HOME" \
+    -e "LANG=$LANG" \
+    -e "LC_ALL=$LC_ALL" \
+    -e "LC_CTYPE=$LC_CTYPE" \
+    -e "TEXINPUTS=$TEXINPUTS" \
+    $DOCKER_IMAGE \
+    /usr/bin/pdflatex $*

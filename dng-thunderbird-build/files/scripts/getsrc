@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+mkdir /src
+cd /src
+hg clone https://hg.mozilla.org/mozilla-central source/
+cd source/
+hg clone https://hg.mozilla.org/comm-central comm/

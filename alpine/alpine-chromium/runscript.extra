@@ -1,0 +1,4 @@
+
+setup_local() {
+    docker_args "--privileged"
+}

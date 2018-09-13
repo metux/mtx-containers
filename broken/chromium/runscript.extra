@@ -1,0 +1,42 @@
+
+[ "$CHROME_PROFILE_DIR" ] || export CHROME_PROFILE_DIR="$HOME/.config/chromium"
+
+DOCKER_PRIVILEGED=true
+
+profile_remove() {
+    while [ "$1" ]; do
+        rm -Rf "$CHROME_PROFILE_DIR/$1"
+        shift
+    done
+}
+
+profile_tmpdir() {
+    while [ "$1" ]; do
+        docker_tmpfs "$CHROME_PROFILE_DIR/$1"
+        shift
+    done
+}
+
+setup_local() {
+    profile_tmpdir \
+        "MEIPreload" \
+        "Safe Browsing" \
+        "Subresouce Filter" \
+        "System Profile" \
+        "Safe Browsing Channel IDs" \
+        "Safe Browsing Cookies" \
+        "Service State"
+}
+
+exit_handler() {
+    log "exiting ..."
+    profile_remove \
+        "Default/History Provider Cache" \
+        "Default/previews_opt_out.db" \
+        "Default/previews_opt_out.db-journal" \
+        "Default/Shortcuts-journal" \
+        "MEIPreload" \
+        "Safe Browsing" \
+        "Subresouce Filter" \
+        "System Profile"
+}
