@@ -1,0 +1,98 @@
+#!/bin/bash
+
+set -e
+
+[ "$DOCKER" ] || DOCKER=docker
+
+CONTAINER_IMAGE="metux/vdesk-skype-alpha"
+
+args=($DOCKER run --rm)
+
+CWD=`pwd`
+GID=`id -g`
+
+SKYPE_HOME="$HOME/.skype-root"
+
+mkdir -p $SKYPE_HOME
+
+die() {
+    echo "$0: $*" >&2
+    exit 1
+}
+
+map_pulseaudio() {
+    mkdir -p $SKYPE_HOME/.config/pulse
+    cp $HOME/.config/pulse/cookie $SKYPE_HOME/.config/pulse
+    args+=(-v "/run/user/$UID/pulse:/run/user/$UID/pulse")
+    args+=(-e PULSE_SERVER="unix:/run/user/$UID/pulse/native")
+}
+
+map_camera() {
+    args+=(--device /dev/video0)
+}
+
+map_x11() {
+    cp $HOME/.Xauthority $SKYPE_HOME
+    args+=(-v "/tmp/.X11-unix:/tmp/.X11-unix")
+    args+=(-e DISPLAY="$DISPLAY")
+}
+
+map_multimedia() {
+    map_x11
+    map_pulseaudio
+    map_camera
+}
+
+map_locales() {
+    args+=(-e LANG="$LANG")
+    args+=(-e LC_ALL="$LC_ALL")
+    args+=(-e LC_CTYPE="$LC_CTYPE")
+}
+
+map_dri() {
+    args+=(--privileged)
+}
+
+map_caller_uid() {
+    local username=`whoami`
+
+    ## fixme: should create our own fake passwd
+    args+=(-v "/etc/passwd:/etc/passwd" -v "/etc/group:/etc/group")
+
+    ## user id
+    args+=(-u "$UID:$GID")
+    args+=(-e LOGNAME="$username")
+    args+=(-e USER="$username")
+}
+
+enable_strace() {
+    args+=(--security-opt seccomp:unconfined)
+}
+
+## run a container in oneshot mode w/ x11
+run_oneshot() {
+    [ "$CONTAINER_IMAGE" ] || die "image name undefined"
+
+    ## skype specific
+    CWD="$HOME"
+
+    enable_strace
+    map_caller_uid
+
+    ## current work dir (will be handled by entrypoint.sh)
+    args+=(-e CWD="$CWD")
+
+    ## home directory
+    args+=(-v "$SKYPE_HOME:$HOME" -e HOME="$HOME")
+
+    map_locales
+    map_multimedia
+    map_dri
+
+    ## add container image name
+    args+=("$CONTAINER_IMAGE")
+
+    ${args[@]} "$@"
+}
+
+run_oneshot "$@"

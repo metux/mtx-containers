@@ -1,0 +1,40 @@
+##
+## these versions seem to be okay:
+##
+## * 8.17.0.2 (extra deps)
+## * 8.27.0.85
+## * 8.28.0.41
+## * 8.29.0.41
+## * 8.29.0.50
+## * 8.29.76.16
+## * 8.29.76.43
+##
+
+## broken versions (crash in libdbus call)
+
+#Package: skypeforlinux
+#Pin: version 8.30.0.50
+#Pin-Priority: -1
+
+#Package: skypeforlinux
+#Pin: version 8.30.76.22
+#Pin-Priority: -1
+
+#Package: skypeforlinux
+#Pin: version 8.30.76.41
+#Pin-Priority: -1
+
+#Package: skypeforlinux
+#Pin: version 8.31.76.88
+#Pin-Priority: -1
+
+## only allow 'skypeforlinux' from micrsoft repo
+## never allow them to replace other packages
+
+Package: *
+Pin: origin repo.skype.com
+Pin-Priority: -1
+
+Package: skypeforlinux
+Pin: origin repo.skype.com
+Pin-Priority: 600
