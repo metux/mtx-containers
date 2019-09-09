@@ -1,0 +1,42 @@
+
+CONTAINER_RESTRICT_HOMEDIR+=( .config/libreoffice "${LIBREOFFICE_HOMEDIRS[@]}" )
+
+cleanup_junk() {
+    for i in "$@" ; do
+        rm -vf $HOME/.config/libreoffice/user/4/$i
+    done
+    for i in 1 2 3 4 5 ; do
+        find $HOME/.config/libreoffice/ -type d -empty -exec "rmdir" "{}" ";"
+    done
+}
+
+exit_handler() {
+    cleanup_junk \
+        registrymodifications.xcu \
+        pack/registrymodifications.pack \
+        pack/basic/dialog.pack \
+        pack/basic/Standard/dialog.pack \
+        pack/basic/Standard/script.pack \
+        pack/basic/Standard/Module1.pack \
+        pack/basic/script.pack \
+        pack/database/biblio/biblio.pack \
+        pack/database/biblio.pack \
+        pack/config/autotbl.pack \
+        pack/config/javasettings_Linux_X86_64.pack \
+        pack/ExtensionInfo.pack \
+        pack/autotext/mytexts.pack \
+        basic/script.xlc \
+        basic/Standard/dialog.xlb \
+        basic/Standard/script.xlb \
+        basic/Standard/Module1.xba \
+        basic/dialog.xlc \
+        config/autotbl.fmt \
+        config/javasettings_Linux_X86_64.xml \
+        registrymodifications.xcu
+}
+
+setup_local() {
+    trap exit_handler EXIT
+    docker_tmpfs "$HOME/.cache/dconf"
+    docker_add_env "CWD" "$HOME/.config/libreoffice"
+}
