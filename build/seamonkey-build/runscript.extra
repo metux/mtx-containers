@@ -1,0 +1,94 @@
+PROFILE_TMPDIRS="
+    blocklists
+    crashes
+    datareporting
+    minidumps
+    saved-telemetry-pings
+"
+
+PROFILE_CLEANUP_FILES="
+    cookies.sqlite
+    cookies.sqlite.bak
+    blocklist.xml
+    AlternateServices.txt
+    kinto.sqlite
+    SecurityPreloadState.txt
+    SiteSecurityServiceState.txt
+    webappsstore.sqlite
+    pluginreg.dat
+    pkcs11.txt
+    panacea.dat
+    search.json
+    search.json.mozlz4
+    times.json
+    favicons.sqlite
+    compatibility.ini
+    addonStartup.json.lz4
+"
+
+call_browser() {
+    log "calling browser: $@"
+    x-www-browser "$@" &
+}
+
+read_pipe() {
+    while true ; do
+        if read -r msg ; then
+            if [ "$msg" ]; then
+                call_browser "$msg"
+            fi
+        else
+            sleep 1
+        fi
+    done
+}
+
+run_plumber() {
+    while [ -p $PLUMBER_PIPE ]; do
+        read_pipe < $PLUMBER_PIPE
+    done
+}
+
+kill_plumber() {
+    for job in $(jobs -p); do
+        kill -s SIGTERM $job > /dev/null 2>&1
+        rm -f $PLUMBER_PIPE
+    done
+}
+
+setup_profiledir() {
+    [ -d $1 ] || return 0
+
+    THUNDERBIRD_PROFILE="$1"
+
+    for i in $PROFILE_TMPDIRS ; do
+        docker_tmpfs "$THUNDERBIRD_PROFILE/$i"
+    done
+}
+
+post_cleanup() {
+    true
+}
+
+exit_handler() {
+    kill_plumber
+    post_cleanup
+}
+
+setup_local() {
+    PLUMBER_PIPE="$HOME/.thunderbird/$CONTAINER_NAME.plumber"
+
+#    if [ ! -p "$PLUMBER_PIPE" ]; then
+#        rm -f "$PLUMBER_PIPE"
+#        mknod "$PLUMBER_PIPE" p
+#    fi
+#    docker_add_env PLUMBER_PIPE "$PLUMBER_PIPE"
+#
+#    run_plumber &
+#    trap exit_handler EXIT
+#
+#    ## find profile dir
+#    for i in $HOME/.thunderbird/*.default ; do
+#        setup_profiledir "$i"
+#    done
+}
