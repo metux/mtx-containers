@@ -1,0 +1,23 @@
+
+Packaging for SLES 12 backports
+
+Base image:
+    * metux/sles12.5-eval
+    * taken from SLES vagrant box image
+
+sles12.5-devel
+    * development base image
+
+repos:
+    libdap:
+        oss-qm:
+            url:    git@github.com:oss-qm/libdap.git
+            branch: sles12/maint-3.20.4
+        upstream:
+            url:    https://github.com/OPENDAP/libdap.git
+    bison:
+        oss-qm:
+            url:    git@github.com:oss-qm/bison.git
+            branch: sles12/maint-3.0.4
+        upstream:
+            url:    https://git.savannah.gnu.org/git/bison.git

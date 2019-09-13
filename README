@@ -1,0 +1,3 @@
+
+* if docker crashes with exit code 159:
+    --security-opt seccomp:unconfined

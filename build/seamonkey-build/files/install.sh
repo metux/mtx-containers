@@ -35,7 +35,8 @@ apt-get install --no-install-recommends -y \
     libasound2-dev \
     libsqlite3-dev \
     libevent-dev \
-    autoconf
+    autoconf \
+    libbz2-dev
 
 apt-get autoremove -y
 

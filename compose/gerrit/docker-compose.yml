@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  gerrit:
+    image: gerritcodereview/gerrit
+    volumes:
+       - git-volume:/var/gerrit/git
+       - db-volume:/var/gerrit/db
+       - index-volume:/var/gerrit/index
+       - cache-volume:/var/gerrit/cache
+    ports:
+       - "29418:29418"
+       - "8080:8080"
+       - "8022:22"
+    environment:
+      - CANONICAL_WEB_URL=http://localhost:8080/
+
+volumes:
+    git-volume:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: ./gerrit/git
+    db-volume:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: ./gerrit/db
+    index-volume:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: ./gerrit/index
+    cache-volume:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: ./gerrit/cache
+

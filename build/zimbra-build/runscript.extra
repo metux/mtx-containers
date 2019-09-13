@@ -1,0 +1,10 @@
+
+setup_local() {
+    DOCKER_NO_PASSWD="true"
+    DOCKER_NO_UID="true"
+
+    docker_env_add LOCAL_USER_NAME  "$(id -un)"
+    docker_env_add LOCAL_USER_ID    "$(id -u)"
+    docker_env_add LOCAL_GROUP_NAME "$(id -gn)"
+    docker_env_add LOCAL_GROUP_ID   "$(id -g)"
+}

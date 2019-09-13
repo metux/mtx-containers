@@ -1,0 +1,11 @@
+APPLICATION		:= msteams
+TOPDIR			:= ../../
+IMAGE_NAME		:= vdesk-$(APPLICATION)
+AUTOGEN_SCRIPT		:= $(APPLICATION)
+CONTAINER_NAME		:= vdesk-$(APPLICATION)
+CONTAINER_X11		:= yes
+CONTAINER_DRI		:= yes
+CONTAINER_AUDIO		:= yes
+CONTAINER_HOST_IPC	:= yes
+
+include $(TOPDIR)/common/std.mk

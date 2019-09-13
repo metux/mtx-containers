@@ -5,7 +5,7 @@ ALL_SCRIPTS := $(SCRIPTS) $(AUTOGEN_SCRIPT)
 
 build:	build-docker-image $(ALL_SCRIPTS)
 
-build-docker-image:
+build-docker-image:	$(DOCKER_DEPS)
 	@$(DOCKER_BUILD) . -t $(DOCKER_TAG)
 
 install-scripts:	$(ALL_SCRIPTS)
@@ -31,6 +31,7 @@ $(AUTOGEN_SCRIPT): $(TOPDIR)/common/runscript.head $(TOPDIR)/common/runscript.ta
             echo "CONTAINER_DRI=\"$(CONTAINER_DRI)\"" ; \
             echo "CONTAINER_NAME=\"$(CONTAINER_NAME)\"" ; \
             echo "CONTAINER_AUDIO=\"$(CONTAINER_AUDIO)\"" ; \
+            echo "CONTAINER_HOST_IPC=\"$(CONTAINER_HOST_IPC)\"" ; \
             echo "# END configuration" ; \
             echo "" ; \
             if [ -f runscript.extra ]; then \

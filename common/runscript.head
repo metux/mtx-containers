@@ -105,6 +105,12 @@ setup_user() {
     fi
 }
 
+setup_ipc() {
+    if [ ! "$CONTAINER_HOST_IPC" == "yes" ]; then
+        docker_args --ipc=host
+    fi
+}
+
 setup_docker() {
     [ "$DOCKER_PRIVILEGED" ] && docker_args --privileged
     setup_passwd_args
@@ -114,11 +120,13 @@ setup_docker() {
     setup_x11_args
     setup_audio_args
     setup_local
+    setup_ipc
 }
 
 run_oneshot() {
     [ "$CONTAINER_IMAGE" ] || die "image name undefined"
 
+#    docker_args --security-opt seccomp:unconfined
     setup_docker
     $DOCKER run --rm "${DOCKER_ARGS[@]}" $CONTAINER_IMAGE "$@"
 }

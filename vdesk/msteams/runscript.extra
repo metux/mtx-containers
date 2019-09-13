@@ -1,0 +1,6 @@
+CONTAINER_AUDIO=yes
+CONTAINER_RESTRICT_HOMEDIR=( .config/Microsoft )
+
+# docker_args --cap-add=SYS_PTRACE
+docker_args --ipc=host
+#docker_args --device=/dev/snd
