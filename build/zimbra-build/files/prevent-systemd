@@ -1,0 +1,4 @@
+Package: systemd
+Pin: version *
+Pin-Priority: -1
+Explanation: prevent systemd from being installed

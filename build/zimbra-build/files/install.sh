@@ -4,6 +4,8 @@ set -e
 
 export DEBIAN_FRONTEND=noninteractive
 
+mkdir -p /usr/share/man/man1/
+
 apt-get update
 
 apt-get upgrade -y
@@ -12,12 +14,7 @@ apt-get install --no-install-recommends -y \
     locales \
     pkg-config \
     g++ \
-    libpango1.0-dev \
     autoconf2.13 \
-    libgtk-3-0 \
-    gir1.2-gtk-3.0 \
-    libgtk-3-dev \
-    libgtk2.0-dev \
     git \
     mc \
     tig \
@@ -25,18 +22,15 @@ apt-get install --no-install-recommends -y \
     unzip \
     zip \
     make \
-    libgconf2-dev \
-    libdbus-glib-1-dev \
-    yasm \
-    libpulse-dev \
-    libxt-dev \
-    libhunspell-dev \
     less \
-    libasound2-dev \
-    libsqlite3-dev \
-    libevent-dev \
     autoconf \
-    libbz2-dev
+    openjdk-11-jdk \
+    ant \
+    ant-optional \
+    ruby \
+    maven \
+    build-essential \
+    wget
 
 apt-get autoremove -y
 
