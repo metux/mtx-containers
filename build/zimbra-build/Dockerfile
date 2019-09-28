@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:stretch-slim
 
 #LABEL distro="debian/buster" \
 #      version="60.8.0" \

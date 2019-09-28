@@ -24,13 +24,19 @@ apt-get install --no-install-recommends -y \
     make \
     less \
     autoconf \
-    openjdk-11-jdk \
+    openjdk-8-jdk \
     ant \
     ant-optional \
     ruby \
     maven \
     build-essential \
-    wget
+    wget \
+    lsb-release \
+    fakeroot \
+    debhelper \
+    rsync
+
+(echo DISTRIB_ID=`lsb_release -si`; echo DISTRIB_CODENAME=`lsb_release -sc`) > /etc/lsb-release
 
 apt-get autoremove -y
 

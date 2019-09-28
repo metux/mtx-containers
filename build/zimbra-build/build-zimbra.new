@@ -62,12 +62,17 @@ setup_audio_args() {
 }
 
 setup_passwd_args() {
-    if [ ! "$CONTAINER_NO_PASSWD" ]; then
-        docker_mount_map_ro /etc/passwd
-        docker_mount_map_ro /etc/shadow
-        docker_mount_map_ro /etc/group
-    fi
-    docker_mount_map_ro /etc/localtime
+    local basedir="$HOME/.tmp/container-build/zimbra"
+#    mkdir -p "$basedir"
+#    for i in passwd shadow group localtime ; do
+#        cp /etc/$i $basedir
+#        docker_args --mount type=bind,source=$basedir/$i,target=/etc/$i
+#    done
+
+#    docker_mount_map_ro /etc/passwd
+#    docker_mount_map_ro /etc/shadow
+#    docker_mount_map_ro /etc/group
+#    docker_mount_map_ro /etc/localtime
 }
 
 setup_locales() {
@@ -98,11 +103,9 @@ setup_user() {
 
     docker_add_env HOME "$HOME"
 
-    if [ ! "$CONTAINER_NO_UID" ]; then
-        docker_args -u "$UID:$GID"
-        docker_add_env LOGNAME "$USER"
-        docker_add_env USER    "$USER"
-    fi
+#    docker_args -u "$UID:$GID"
+    docker_add_env LOGNAME "$USER"
+    docker_add_env USER    "$USER"
 }
 
 setup_docker() {
@@ -133,13 +136,7 @@ CONTAINER_NAME="build-zimbra-stretch"
 #### BEGIN runscript.extra
 
 setup_local() {
-    DOCKER_NO_PASSWD="true"
-    DOCKER_NO_UID="true"
-
-    docker_env_add LOCAL_USER_NAME  "$(id -un)"
-    docker_env_add LOCAL_USER_ID    "$(id -u)"
-    docker_env_add LOCAL_GROUP_NAME "$(id -gn)"
-    docker_env_add LOCAL_GROUP_ID   "$(id -g)"
+    true
 }
 #### END runscript.extra
 
