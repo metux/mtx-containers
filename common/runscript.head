@@ -62,9 +62,11 @@ setup_audio_args() {
 }
 
 setup_passwd_args() {
-    docker_mount_map_ro /etc/passwd
-    docker_mount_map_ro /etc/shadow
-    docker_mount_map_ro /etc/group
+    if [ ! "$CONTAINER_NO_PASSWD" ]; then
+        docker_mount_map_ro /etc/passwd
+        docker_mount_map_ro /etc/shadow
+        docker_mount_map_ro /etc/group
+    fi
     docker_mount_map_ro /etc/localtime
 }
 
