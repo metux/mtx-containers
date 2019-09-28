@@ -98,9 +98,11 @@ setup_user() {
 
     docker_add_env HOME "$HOME"
 
-    docker_args -u "$UID:$GID"
-    docker_add_env LOGNAME "$USER"
-    docker_add_env USER    "$USER"
+    if [ ! "$CONTAINER_NO_UID" ]; then
+        docker_args -u "$UID:$GID"
+        docker_add_env LOGNAME "$USER"
+        docker_add_env USER    "$USER"
+    fi
 }
 
 setup_docker() {
