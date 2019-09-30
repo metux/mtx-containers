@@ -30,6 +30,7 @@ $(AUTOGEN_SCRIPT): $(TOPDIR)/common/runscript.head $(TOPDIR)/common/runscript.ta
             echo "CONTAINER_X11=\"$(CONTAINER_X11)\"" ; \
             echo "CONTAINER_DRI=\"$(CONTAINER_DRI)\"" ; \
             echo "CONTAINER_NAME=\"$(CONTAINER_NAME)\"" ; \
+            echo "CONTAINER_AUDIO=\"$(CONTAINER_AUDIO)\"" ; \
             echo "# END configuration" ; \
             echo "" ; \
             if [ -f runscript.extra ]; then \
