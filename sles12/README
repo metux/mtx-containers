@@ -8,8 +8,16 @@ Base image:
 sles12.5-devel
     * development base image
 
-
-
-repo sources:
-    * libdap.git:
-	oss-qm: git@github.com:oss-qm/libdap.git
+repos:
+    libdap:
+        oss-qm:
+            url:    git@github.com:oss-qm/libdap.git
+            branch: sles12/maint-3.20.4
+        upstream:
+            url:    https://github.com/OPENDAP/libdap.git
+    bison:
+        oss-qm:
+            url:    git@github.com:oss-qm/bison.git
+            branch: sles12/maint-3.0.4
+        upstream:
+            url:

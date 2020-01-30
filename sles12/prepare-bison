@@ -1,0 +1,8 @@
+#!/bin/bash
+
+GIT_DIR="bison.git"
+SRC_VERSION="3.0.4"
+RPM_NAME="bison"
+RPM_VERSION="${SRC_VERSION}-2"
+
+. ./prepare-std.sh

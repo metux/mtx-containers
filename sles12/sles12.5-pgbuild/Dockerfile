@@ -36,11 +36,13 @@ RUN createrepo /usr/src/packages/repo
 
 COPY files/rebuild-src-rpm /
 COPY files/src/*.src.rpm          /usr/src/packages/repo/srpm/
+#COPY files/srpm/*.src.rpm         /usr/src/packages/repo/srpm/
 
 RUN createrepo /usr/src/packages/repo
 
-RUN /rebuild-src-rpm libdap
+RUN /rebuild-src-rpm bison
 
+#RUN /rebuild-src-rpm libdap
 #RUN /rebuild-src-rpm hdfs_fdw_12 hdfs_fdw
 #RUN /rebuild-src-rpm gdal30
 
