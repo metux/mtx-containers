@@ -20,4 +20,4 @@ repos:
             url:    git@github.com:oss-qm/bison.git
             branch: sles12/maint-3.0.4
         upstream:
-            url:
+            url:    https://git.savannah.gnu.org/git/bison.git

@@ -35,15 +35,26 @@ RUN cp /usr/src/packages/SRPMS/*.src.rpm   /usr/src/packages/repo/srpm
 RUN createrepo /usr/src/packages/repo
 
 COPY files/rebuild-src-rpm /
-COPY files/src/*.src.rpm          /usr/src/packages/repo/srpm/
-#COPY files/srpm/*.src.rpm         /usr/src/packages/repo/srpm/
 
+## FIXME: copying one by one just for reuising image layers
+COPY files/src/bison*.src.rpm      /usr/src/packages/repo/srpm/
 RUN createrepo /usr/src/packages/repo
-
 RUN /rebuild-src-rpm bison
 
-#RUN /rebuild-src-rpm libdap
-#RUN /rebuild-src-rpm hdfs_fdw_12 hdfs_fdw
+RUN touch /1
+COPY files/src/libdap*.src.rpm     /usr/src/packages/repo/srpm/
+RUN createrepo /usr/src/packages/repo
+RUN /rebuild-src-rpm libdap
+
+RUN /rebuild-src-rpm libgeotiff15
+#RUN /rebuild-src-rpm libspatialite50
+
+#COPY files/src/ogdi41*.src.rpm     /usr/src/packages/repo/srpm/
+#RUN createrepo /usr/src/packages/repo
+#RUN /rebuild-src-rpm ogdi41
+
+COPY files/src/gdal30*.src.rpm     /usr/src/packages/repo/srpm/
+RUN createrepo /usr/src/packages/repo
 #RUN /rebuild-src-rpm gdal30
 
 ### WASHERE
