@@ -1,0 +1,9 @@
+[local0]
+name=Locally built
+enabled=1
+autorefresh=1
+baseurl=file:///usr/src/packages/repo
+type=rpm-md
+gpgcheck=0
+#gpgkey=https://download.postgresql.org/pub/repos/zypp/12/suse/sles-12.4-$basearch/repodata/repomd.xml
+keeppackages=0

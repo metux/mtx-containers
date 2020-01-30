@@ -1,0 +1,15 @@
+
+Packaging for SLES 12 backports
+
+Base image:
+    * metux/sles12.5-eval
+    * taken from SLES vagrant box image
+
+sles12.5-devel
+    * development base image
+
+
+
+repo sources:
+    * libdap.git:
+	oss-qm: git@github.com:oss-qm/libdap.git
