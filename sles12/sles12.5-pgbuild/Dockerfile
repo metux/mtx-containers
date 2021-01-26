@@ -49,13 +49,11 @@ RUN /rebuild-src-rpm libdap
 RUN /rebuild-src-rpm libgeotiff15
 #RUN /rebuild-src-rpm libspatialite50
 
-#COPY files/src/ogdi41*.src.rpm     /usr/src/packages/repo/srpm/
-#RUN createrepo /usr/src/packages/repo
-#RUN /rebuild-src-rpm ogdi41
-
 COPY files/src/gdal30*.src.rpm     /usr/src/packages/repo/srpm/
 RUN createrepo /usr/src/packages/repo
 #RUN /rebuild-src-rpm gdal30
+
+RUN zypper --non-interactive install libdap-devel
 
 ### WASHERE
 
