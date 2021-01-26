@@ -5,7 +5,7 @@ ALL_SCRIPTS := $(SCRIPTS) $(AUTOGEN_SCRIPT)
 
 build:	build-docker-image $(ALL_SCRIPTS)
 
-build-docker-image:
+build-docker-image:	$(DOCKER_DEPS)
 	@$(DOCKER_BUILD) . -t $(DOCKER_TAG)
 
 install-scripts:	$(ALL_SCRIPTS)
