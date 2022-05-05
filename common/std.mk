@@ -32,6 +32,7 @@ $(AUTOGEN_SCRIPT): $(TOPDIR)/common/runscript.head $(TOPDIR)/common/runscript.ta
             echo "CONTAINER_NAME=\"$(CONTAINER_NAME)\"" ; \
             echo "CONTAINER_AUDIO=\"$(CONTAINER_AUDIO)\"" ; \
             echo "CONTAINER_HOST_IPC=\"$(CONTAINER_HOST_IPC)\"" ; \
+            echo "CONTAINER_PULSE=\"$(CONTAINER_PULSE)\"" ; \
             echo "# END configuration" ; \
             echo "" ; \
             if [ -f runscript.extra ]; then \

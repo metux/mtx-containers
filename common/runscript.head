@@ -59,6 +59,11 @@ setup_audio_args() {
         docker_device /dev/snd
         docker_args --group-add audio
     fi
+    if [ "$CONTAINER_PULSE" == "yes" ]; then
+        log "mapping pulseaudio"
+        docker_mount_map /run/user/`id -u`/pulse
+        docker_mount_map $HOME/.config/pulse
+    fi
 }
 
 setup_passwd_args() {
