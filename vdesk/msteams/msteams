@@ -59,6 +59,11 @@ setup_audio_args() {
         docker_device /dev/snd
         docker_args --group-add audio
     fi
+    if [ "$CONTAINER_PULSE" == "yes" ]; then
+        log "mapping pulseaudio"
+        docker_mount_map /run/user/`id -u`/pulse
+        docker_mount_map $HOME/.config/pulse
+    fi
 }
 
 setup_passwd_args() {
@@ -128,7 +133,7 @@ run_oneshot() {
 
 #    docker_args --security-opt seccomp:unconfined
     setup_docker
-    $DOCKER run --rm "${DOCKER_ARGS[@]}" $CONTAINER_IMAGE "$@"
+    $DOCKER run --rm "${DOCKER_ARGS[@]}" -it $CONTAINER_IMAGE "$@"
 }
 
 # BEGIN configuration
@@ -138,6 +143,7 @@ CONTAINER_DRI="yes"
 CONTAINER_NAME="vdesk-msteams"
 CONTAINER_AUDIO="yes"
 CONTAINER_HOST_IPC="yes"
+CONTAINER_PULSE="yes"
 # END configuration
 
 #### BEGIN runscript.extra
@@ -147,6 +153,7 @@ CONTAINER_RESTRICT_HOMEDIR=( .config/Microsoft )
 # docker_args --cap-add=SYS_PTRACE
 docker_args --ipc=host
 #docker_args --device=/dev/snd
+docker_args --privileged
 #### END runscript.extra
 
 run_oneshot "$@"

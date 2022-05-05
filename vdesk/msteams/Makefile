@@ -7,5 +7,6 @@ CONTAINER_X11		:= yes
 CONTAINER_DRI		:= yes
 CONTAINER_AUDIO		:= yes
 CONTAINER_HOST_IPC	:= yes
+CONTAINER_PULSE		:= yes
 
 include $(TOPDIR)/common/std.mk
